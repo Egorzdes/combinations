@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Combinations</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#process-button").click(function() {
+                var first = $("#first-input").val();
+                var second = $("#second-input").val();
+                var third = $("#third-input").val();
+                var data = {
+                    "first": first.split(","),
+                    "second": second.split(","),
+                    "third": third.split(","),
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/process-data",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function(response) {
+                        $("#result").html(response);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<label for="first-input">first:</label>
+<input type="text" id="first-input" name="first">
+<br>
+<label for="second-input">second:</label>
+<input type="text" id="second-input" name="second">
+<br>
+<label for="third-input">third:</label>
+<input type="text" id="third-input" name="third">
+<br>
+<button id="process-button">Process Data</button>
+<br>
+<div id="result"></div>
+</body>
+</html>

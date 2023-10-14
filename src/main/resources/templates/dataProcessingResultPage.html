@@ -1,0 +1,24 @@
+<!-- dataProcessingResultPage.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Processing Result</title>
+</head>
+<body>
+<h1>Data Processing Result</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Combination</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over combinations and display each combination -->
+    <tr th:each="combination : ${combinations}">
+        <td th:text="${combination}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
