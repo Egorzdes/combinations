@@ -1,4 +1,4 @@
-package sber_project.proj;
+package combinations.proj;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

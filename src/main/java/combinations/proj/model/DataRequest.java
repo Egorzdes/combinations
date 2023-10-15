@@ -1,12 +1,6 @@
-package sber_project.proj.model;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+package combinations.proj.model;
 
 import java.util.List;
-
-
-import java.util.ArrayList;
 
 public class DataRequest {
     private List<String> first;
@@ -16,8 +10,10 @@ public class DataRequest {
     private List<String> fifth;
     private List<String> sixth;
     private List<String> seventh;
+    private List<String> eight;
 
-    public DataRequest(List<String> first, List<String> second, List<String> third, List<String> fourth, List<String> fifth, List<String> sixth, List<String> seventh) {
+    public DataRequest(List<String> first, List<String> second, List<String> third, List<String> fourth, List<String> fifth,
+                       List<String> sixth, List<String> seventh, List<String> eight) {
         this.first = first;
         this.second = second;
         this.third = third;
@@ -25,6 +21,7 @@ public class DataRequest {
         this.fifth = fifth;
         this.sixth = sixth;
         this.seventh = seventh;
+        this.eight = eight;
     }
 
     public List<String> getFirst() {
@@ -81,6 +78,14 @@ public class DataRequest {
 
     public void setSeventh(List<String> seventh) {
         this.seventh = seventh;
+    }
+
+    public List<String> getEight() {
+        return eight;
+    }
+
+    public void setEight(List<String> eight) {
+        this.eight = eight;
     }
 }
 

@@ -37,6 +37,7 @@
                 var fifth = $("#fifth-input").val();
                 var sixth = $("#sixth-input").val();
                 var seventh = $("#seventh-input").val();
+                var eight = $("#eight-input").val();
                 var data = {
                     first: first.split(","),
                     second: second.split(","),
@@ -44,10 +45,11 @@
                     fourth: fourth.split(","),
                     fifth: fifth.split(","),
                     sixth: sixth.split(","),
-                    seventh: seventh.split(",")
+                    seventh: seventh.split(","),
+                    eight: eight.split(",")
                 };
 
-                var combinations = getCombinations([data.first, data.second, data.third, data.fourth, data.fifth, data.sixth, data.seventh]);
+                var combinations = getCombinations([data.first, data.second, data.third, data.fourth, data.fifth, data.sixth, data.seventh, data.eight]);
                 var combinationCount = combinations.length;
                 var combinationsList = "";
                 combinations.forEach(function(combination) {
@@ -89,6 +91,10 @@
 <div class="form-group">
     <label for="seventh-input">Seventh List:</label>
     <input type="text" id="seventh-input">
+</div>
+<div class="form-group">
+    <label for="eight-input">Eight List:</label>
+    <input type="text" id="eight-input">
 </div>
 <button id="process-button">Process</button>
 <div id="combination-count"></div>

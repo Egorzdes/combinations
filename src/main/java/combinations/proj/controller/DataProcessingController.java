@@ -1,4 +1,4 @@
-package sber_project.proj.controller;
+package combinations.proj.controller;
 
 import org.assertj.core.groups.Tuple;
 import org.springframework.stereotype.Controller;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
-import sber_project.proj.model.DataRequest;
+import combinations.proj.model.DataRequest;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,6 +42,7 @@ public class DataProcessingController {
         Set<String> fifth = new HashSet<>(request.getFifth());
         Set<String> sixth = new HashSet<>(request.getSixth());
         Set<String> seventh = new HashSet<>(request.getSeventh());
+        Set<String> eight = new HashSet<>(request.getEight());
         for (String x : first) {
             for (String y : second) {
                 for (String z : third) {
@@ -49,7 +50,8 @@ public class DataProcessingController {
                         for (String n : fifth) {
                             for (String o : sixth) {
                                 for (String p : seventh) {
-                                    combinations.add(new Tuple(new String[]{x, y, z, m, n, o, p}));
+                                    for(String d: eight)
+                                    combinations.add(new Tuple(new String[]{x, y, z, m, n, o, p, d}));
                                 }
                             }
                         }
