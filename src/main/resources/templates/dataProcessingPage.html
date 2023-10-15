@@ -2,44 +2,96 @@
 <html>
 <head>
     <title>Combinations</title>
+    <style>
+        .form-group {
+            margin-bottom: 10px;
+            width: 200px;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+        // Function to generate combinations
+        function getCombinations(inputArray) {
+            const combinations = [];
+
+            function generate(current, remaining) {
+                if (remaining.length === 0) {
+                    combinations.push(current);
+                } else {
+                    for (let i = 0; i < remaining[0].length; i++) {
+                        generate(current.concat([remaining[0][i]]), remaining.slice(1));
+                    }
+                }
+            }
+
+            generate([], inputArray);
+            return combinations;
+        }
+
         $(document).ready(function() {
             $("#process-button").click(function() {
                 var first = $("#first-input").val();
                 var second = $("#second-input").val();
                 var third = $("#third-input").val();
+                var fourth = $("#fourth-input").val();
+                var fifth = $("#fifth-input").val();
+                var sixth = $("#sixth-input").val();
+                var seventh = $("#seventh-input").val();
                 var data = {
-                    "first": first.split(","),
-                    "second": second.split(","),
-                    "third": third.split(","),
+                    first: first.split(","),
+                    second: second.split(","),
+                    third: third.split(","),
+                    fourth: fourth.split(","),
+                    fifth: fifth.split(","),
+                    sixth: sixth.split(","),
+                    seventh: seventh.split(",")
                 };
 
-                $.ajax({
-                    type: "POST",
-                    url: "/process-data",
-                    data: JSON.stringify(data),
-                    contentType: "application/json",
-                    success: function(response) {
-                        $("#result").html(response);
-                    }
+                var combinations = getCombinations([data.first, data.second, data.third, data.fourth, data.fifth, data.sixth, data.seventh]);
+                var combinationCount = combinations.length;
+                var combinationsList = "";
+                combinations.forEach(function(combination) {
+                    combinationsList += "<li>" + combination.join(" ") + "</li>";
                 });
+
+                $("#combinations-list").html(combinationsList);
+                $("#combination-count").text("Number of Combinations: " + combinationCount);
             });
         });
     </script>
 </head>
 <body>
-<label for="first-input">first:</label>
-<input type="text" id="first-input" name="first">
-<br>
-<label for="second-input">second:</label>
-<input type="text" id="second-input" name="second">
-<br>
-<label for="third-input">third:</label>
-<input type="text" id="third-input" name="third">
-<br>
-<button id="process-button">Process Data</button>
-<br>
-<div id="result"></div>
+<h2>Combinations</h2>
+<div class="form-group">
+    <label for="first-input">First List:</label>
+    <input type="text" id="first-input">
+</div>
+<div class="form-group">
+    <label for="second-input">Second List:</label>
+    <input type="text" id="second-input">
+</div>
+<div class="form-group">
+    <label for="third-input">Third List:</label>
+    <input type="text" id="third-input">
+</div>
+<div class="form-group">
+    <label for="fourth-input">Fourth List:</label>
+    <input type="text" id="fourth-input">
+</div>
+<div class="form-group">
+    <label for="fifth-input">Fifth List:</label>
+    <input type="text" id="fifth-input">
+</div>
+<div class="form-group">
+    <label for="sixth-input">Sixth List:</label>
+    <input type="text" id="sixth-input">
+</div>
+<div class="form-group">
+    <label for="seventh-input">Seventh List:</label>
+    <input type="text" id="seventh-input">
+</div>
+<button id="process-button">Process</button>
+<div id="combination-count"></div>
+<ul id="combinations-list"></ul>
 </body>
 </html>

@@ -9,46 +9,78 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DataRequest {
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<String> first;
-
-
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<String> second;
-
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<String> third;
+    private List<String> fourth;
+    private List<String> fifth;
+    private List<String> sixth;
+    private List<String> seventh;
 
-    public DataRequest() {
-    }
-
-    public DataRequest(ArrayList<String> first, ArrayList<String> second, ArrayList<String> third) {
+    public DataRequest(List<String> first, List<String> second, List<String> third, List<String> fourth, List<String> fifth, List<String> sixth, List<String> seventh) {
         this.first = first;
         this.second = second;
         this.third = third;
+        this.fourth = fourth;
+        this.fifth = fifth;
+        this.sixth = sixth;
+        this.seventh = seventh;
     }
 
-    public ArrayList<String> getfirst() {
-        return new ArrayList<>(first);
-        }
+    public List<String> getFirst() {
+        return first;
+    }
 
-    public void setFirst(ArrayList<String> first) {
+    public void setFirst(List<String> first) {
         this.first = first;
     }
 
-    public ArrayList<String> getsecond() {
-        return new ArrayList<>(second);
+    public List<String> getSecond() {
+        return second;
     }
 
-    public void setSecond(ArrayList<String> second) {
+    public void setSecond(List<String> second) {
         this.second = second;
     }
 
-    public ArrayList<String> getThird() {
-        return new ArrayList<>(third);
+    public List<String> getThird() {
+        return third;
     }
 
-    public void setThird(ArrayList<String> third) {
+    public void setThird(List<String> third) {
         this.third = third;
+    }
+
+    public List<String> getFourth() {
+        return fourth;
+    }
+
+    public void setFourth(List<String> fourth) {
+        this.fourth = fourth;
+    }
+
+    public List<String> getFifth() {
+        return fifth;
+    }
+
+    public void setFifth(List<String> fifth) {
+        this.fifth = fifth;
+    }
+
+    public List<String> getSixth() {
+        return sixth;
+    }
+
+    public void setSixth(List<String> sixth) {
+        this.sixth = sixth;
+    }
+
+    public List<String> getSeventh() {
+        return seventh;
+    }
+
+    public void setSeventh(List<String> seventh) {
+        this.seventh = seventh;
     }
 }
+
