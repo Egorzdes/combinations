@@ -28,8 +28,8 @@
             return combinations;
         }
 
-        $(document).ready(function() {
-            $("#process-button").click(function() {
+        $(document).ready(function () {
+            $("#process-button").click(function () {
                 var first = $("#first-input").val();
                 var second = $("#second-input").val();
                 var third = $("#third-input").val();
@@ -52,7 +52,7 @@
                 var combinations = getCombinations([data.first, data.second, data.third, data.fourth, data.fifth, data.sixth, data.seventh, data.eight]);
                 var combinationCount = combinations.length;
                 var combinationsList = "";
-                combinations.forEach(function(combination) {
+                combinations.forEach(function (combination) {
                     combinationsList += "<li>" + combination.join(" ") + "</li>";
                 });
 
@@ -64,39 +64,91 @@
 </head>
 <body>
 <h2>Combinations</h2>
-<div class="form-group">
-    <label for="first-input">First List:</label>
-    <input type="text" id="first-input">
-</div>
-<div class="form-group">
-    <label for="second-input">Second List:</label>
-    <input type="text" id="second-input">
-</div>
-<div class="form-group">
-    <label for="third-input">Third List:</label>
-    <input type="text" id="third-input">
-</div>
-<div class="form-group">
-    <label for="fourth-input">Fourth List:</label>
-    <input type="text" id="fourth-input">
-</div>
-<div class="form-group">
-    <label for="fifth-input">Fifth List:</label>
-    <input type="text" id="fifth-input">
-</div>
-<div class="form-group">
-    <label for="sixth-input">Sixth List:</label>
-    <input type="text" id="sixth-input">
-</div>
-<div class="form-group">
-    <label for="seventh-input">Seventh List:</label>
-    <input type="text" id="seventh-input">
-</div>
-<div class="form-group">
-    <label for="eight-input">Eight List:</label>
-    <input type="text" id="eight-input">
-</div>
-<button id="process-button">Process</button>
+<form>
+    <div class="form-group">
+        <label for="num-inputs">Number of Lists:</label>
+        <input type="number" id="num-inputs" min="1" max="8" onchange="createInputFields()">
+    </div>
+</form>
+
+
+
+<script>
+    function createInputFields() {
+        const numInputs = parseInt(document.getElementById("num-inputs").value);
+        const container = document.getElementById("form-container");
+
+        // Очищаем контейнер перед добавлением новых полей ввода
+        container.innerHTML = "";
+
+        for (let i = 1; i <= numInputs; i++) {
+            const label = document.createElement("label");
+            label.setAttribute("for", `input-${i}`);
+            label.innerText = `List ${i}:`;
+
+            const input = document.createElement("input");
+            input.setAttribute("type", "text");
+            input.setAttribute("id", `input-${i}`);
+
+            const formGroup = document.createElement("div");
+            formGroup.classList.add("form-group");
+            formGroup.appendChild(label);
+            formGroup.appendChild(input);
+
+            container.appendChild(formGroup);
+        }
+
+        const submitButton = document.createElement("button");
+        submitButton.innerText = "Process Data";
+        submitButton.addEventListener("click", processData);
+
+        container.appendChild(submitButton);
+    }
+
+
+    function processData() {
+        const numInputs = parseInt(document.getElementById("num-inputs").value);
+        const inputData = [];
+
+        for (let i = 1; i <= numInputs; i++) {
+            const input = document.getElementById(`input-${i}`);
+            inputData.push(input.value.split(","));
+        }
+
+        const combinations = getCombinations(inputData);
+        const numCombinations = combinations.length;
+        alert("Combinations: " + JSON.stringify(combinations) + "\nNumber of Combinations: " + numCombinations);
+
+        const resultContainer = document.getElementById("result-container");
+        resultContainer.innerHTML = "";
+
+        const resultText = document.createElement("p");
+        resultText.innerText = "Combinations: " + JSON.stringify(combinations) + "\nNumber of Combinations: " + numCombinations;
+        resultContainer.appendChild(resultText);
+    }
+
+    function getCombinations(inputArray) {
+        const combinations = [];
+
+        function generate(current, remaining) {
+            if (remaining.length === 0) {
+                combinations.push(current);
+            } else {
+                for (let i = 0; i < remaining[0].length; i++) {
+                    generate(current.concat([remaining[0][i]]), remaining.slice(1));
+                }
+            }
+        }
+
+        generate([], inputArray);
+        return combinations;
+    }
+    const resultContainer = document.createElement("div");
+    resultContainer.setAttribute("id", "result-container");
+
+    document.body.appendChild(resultContainer);
+</script>
+<div id="form-container"></div>
 <div id="combination-count"></div>
 <ul id="combinations-list"></ul>
 </body>
