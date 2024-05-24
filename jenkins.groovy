@@ -16,13 +16,15 @@ pipeline {
 
         stage('Execute Jenkins Groovy Script') {
             steps {
-                script {
-                    // Изменим способ чтения файла и выполнения скрипта
-                    def scriptPath = "jenkins.groovy"
-                    def scriptFile = new File(scriptPath)
-                    def scriptContent = scriptFile.text.trim()
-                    evaluate(scriptContent)
-                }
+                def scriptPath = "jenkins.groovy"
+                def scriptContent = readFileFromWorkspace(scriptPath).trim()
+                evaluate(scriptContent)
+            }
+        }
+
+        stage('Checkout Branch') {
+            steps {
+                bat script: '"C:/Program Files/Git/bin/git.exe" checkout -b master a42338da2fd6c6c9ba769835c5d4a2464b93585d', returnStatus: true
             }
         }
     }
