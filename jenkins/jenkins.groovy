@@ -18,8 +18,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // Шаг для копирования собранного файла на локальную машину
-                sh 'cp target/BUILD.jar /path/to/local/deploy/BUILD.jar'
+                // Шаг для копирования собранного файла на локальную машину с использованием команды start /B
+                bat 'start /B cmd /c copy target\\BUILD.jar C:\\path\\to\\local\\deploy\\BUILD.jar'
             }
         }
     }
