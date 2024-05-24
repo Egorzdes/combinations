@@ -4,30 +4,42 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', credentialsId: 'git_cred', url: 'https://github.com/Egorzdes/combinations'
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Execute Jenkins Groovy Script') {
-            steps {
                 script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Egorzdes/combinations']]])
-                    String scriptContent = readFile("jenkins.groovy").trim()
-                    evaluate(scriptContent)
+                    // Предполагаем, что проект использует Maven для билда, можно заменить на нужный инструмент
+                    if (fileExists('pom.xml')) {
+                        sh 'mvn clean package'
+                    } else {
+                        error "Файл pom.xml не найден, убедитесь, что это Maven проект"
+                    }
                 }
             }
         }
 
-        stage('Checkout Branch') {
+        stage('Archive') {
             steps {
-                bat script: '"C:/Program Files/Git/bin/git.exe" checkout -b master a42338da2fd6c6c9ba769835c5d4a2464b93585d', returnStatus: true
+                script {
+                    // Создаем архив c результатами билда
+                    def outputFile = 'build_archive.zip'
+                    sh "zip -r ${outputFile} target/"
+
+                    // Артифакт, который будет доступен через интерфейс Jenkins
+                    archiveArtifacts artifacts: outputFile
+                }
             }
+        }
+
+    }
+
+    post {
+        always {
+            // Всегда очищаем рабочую директорию после выполнения пайплайна
+            cleanWs()
         }
     }
 }
