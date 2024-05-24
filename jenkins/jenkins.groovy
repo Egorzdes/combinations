@@ -17,9 +17,10 @@ pipeline {
         stage('Execute Jenkins Groovy Script') {
             steps {
                 script {
-                    // Загрузка и выполнение Groovy-скрипта из указанного абсолютного пути
+                    // Изменим способ чтения файла и выполнения скрипта
                     def scriptPath = "jenkins/jenkins.groovy"
-                    def scriptContent = readFile(scriptPath).trim()
+                    def scriptFile = new File(scriptPath)
+                    def scriptContent = scriptFile.text.trim()
                     evaluate(scriptContent)
                 }
             }
