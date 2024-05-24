@@ -16,9 +16,11 @@ pipeline {
 
         stage('Execute Jenkins Groovy Script') {
             steps {
-                def scriptPath = "jenkins.groovy"
-                def scriptContent = readFileFromWorkspace(scriptPath).trim()
-                evaluate(scriptContent)
+                script {
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Egorzdes/combinations']]])
+                    String scriptContent = readFile("jenkins.groovy").trim()
+                    evaluate(scriptContent)
+                }
             }
         }
 
