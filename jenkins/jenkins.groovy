@@ -17,8 +17,10 @@ pipeline {
         stage('Execute Jenkins Groovy Script') {
             steps {
                 script {
+                    // Загрузка и выполнение Groovy-скрипта из указанного абсолютного пути
                     def scriptPath = "C:\\Users\\79332\\combinations\\jenkins\\jenkins.groovy"
-                    load scriptPath
+                    def scriptContent = readFile(scriptPath).trim()
+                    evaluate(scriptContent)
                 }
             }
         }
