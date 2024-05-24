@@ -16,7 +16,10 @@ pipeline {
 
         stage('Execute Jenkins Groovy Script') {
             steps {
-                sh 'cat jenkins.groovy' // Здесь уточните путь к файлу jenkins.groovy в репозитории
+                script {
+                    def scriptPath = "C:\\Users\\79332\\combinations\\jenkins\\jenkins.groovy"
+                    load scriptPath
+                }
             }
         }
     }
