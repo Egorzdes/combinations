@@ -13,11 +13,5 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-
-        stage('Deploy') {
-            steps {
-                bat 'start /B cmd /c copy target\\BUILD.jar C:\\path\\to\\local\\deploy\\BUILD.jar'
-            }
-        }
     }
 }
