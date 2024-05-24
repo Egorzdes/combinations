@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git_cred', url: 'https://github.com/Egorzdes/combinations'
+                git branch: 'master', credentialsId: 'git_cred', url: 'https://github.com/Egorzdes/combinations'
             }
         }
 
