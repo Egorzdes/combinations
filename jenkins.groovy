@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Изменим способ чтения файла и выполнения скрипта
-                    def scriptPath = "jenkins/jenkins.groovy"
+                    def scriptPath = "jenkins.groovy"
                     def scriptFile = new File(scriptPath)
                     def scriptContent = scriptFile.text.trim()
                     evaluate(scriptContent)
