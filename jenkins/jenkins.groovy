@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Загрузка и выполнение Groovy-скрипта из указанного абсолютного пути
-                    def scriptPath = "C:\\Users\\79332\\combinations\\jenkins\\jenkins.groovy"
+                    def scriptPath = "jenkins/jenkins.groovy"
                     def scriptContent = readFile(scriptPath).trim()
                     evaluate(scriptContent)
                 }
