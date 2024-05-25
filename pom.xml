@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <packaging>war</packaging>
-    <groupId>sber_project</groupId>
+    <groupId>project</groupId>
     <artifactId>proj</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>project</name>
