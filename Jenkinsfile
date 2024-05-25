@@ -15,8 +15,7 @@ pipeline {
                 sh 'mvn package'
                 script {
                     def version = sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-                    writeFile file: 'version.txt', text: version
-                    echo "Собранная версия: ${version}"
+                    echo "BUILD_VERSION=${version}" // Сохраняем версию в переменной BUILD_VERSION
                 }
             }
         }
