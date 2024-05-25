@@ -7,12 +7,12 @@ pipeline {
         stage('---clean---') {
             steps {
                 // Не нужно указывать путь вручную, Jenkins сам подставит правильный путь к maven
-                bat 'mvn clean'
+                sh 'mvn clean'
             }
         }
         stage('--package--') {
             steps {
-                bat 'mvn package'
+                sh 'mvn package'
             }
         }
     }
