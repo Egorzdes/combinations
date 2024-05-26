@@ -107,6 +107,8 @@
                     <archive>
                         <manifest>
                             <!-- Указать ваш основной класс здесь -->
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>combinations.proj.ProjApplication</mainClass>
                         </manifest>
                     </archive>
