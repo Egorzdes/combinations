@@ -14,16 +14,15 @@ pipeline {
                 sh 'mvn package' // Сборка дистрибутива
             }
         }
-         stage('Build') {
-                    steps {
-                        script {
-                            def DOCKER_IMAGE_NAME = "myapp"
-                            def DOCKER_CONTAINER_NAME = "myapp_container"
-                            def DIST_PATH = "/var/jenkins_home/workspace/BUILD_JOB/"
+        stage('Build') {
+            steps {
+                sh 'mvn install' // Сборка проекта
+            }
 
-                            echo "${DOCKER_IMAGE_NAME}"
+            stage('Deploy') {
+                        steps {
+                            sh './docker_deploy' // Запуск скрипта docker_deploy.sh для деплоя
                         }
-                    }
-                }
+        }
     }
 }
