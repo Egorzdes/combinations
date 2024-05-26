@@ -27,7 +27,13 @@ pipeline {
         stage('Deploy to Docker') {
             steps {
                 script {
-                    docker.run("${DOCKER_IMAGE_NAME}", "--name ${DOCKER_CONTAINER_NAME} -d")
+                    // Stop and remove any existing container with the same name
+                    sh "docker stop ${DOCKER_CONTAINER_NAME} || true"
+                    sh "docker rm ${DOCKER_CONTAINER_NAME} || true"
+
+                    // Run the new Docker container
+                    def dockerImage = docker.image("${DOCKER_IMAGE_NAME}")
+                    dockerImage.run("-d --name ${DOCKER_CONTAINER_NAME}")
                 }
             }
         }
