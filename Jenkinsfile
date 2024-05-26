@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh './docker_deploy'
+                sh 'bash docker_deploy.sh'
             }
         }
     }
