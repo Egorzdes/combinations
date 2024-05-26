@@ -21,7 +21,7 @@ pipeline {
                             def DOCKER_CONTAINER_NAME = "myapp_container"
                             def DIST_PATH = "/var/jenkins_home/workspace/BUILD_JOB/"
 
-                            echo DOCKER_IMAGE_NAME
+                            echo "${DOCKER_IMAGE_NAME}"
                         }
                     }
                 }
