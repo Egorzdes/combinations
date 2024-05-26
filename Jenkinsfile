@@ -1,8 +1,10 @@
 pipeline {
     agent any
-    tools {
-        maven 'M3'
+
+    environment {
+        DOCKER_PATH = "/c/Program Files/Docker/Docker/resources/bin"
     }
+
     stages {
         stage('Clean') {
             steps {
@@ -21,7 +23,11 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'bash docker_deploy.sh'
+                script {
+                    withEnv(["PATH+DOCKER=${env.DOCKER_PATH}"]) {
+                        sh 'bash docker_deploy.sh'
+                    }
+                }
             }
         }
     }
