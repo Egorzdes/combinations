@@ -1,7 +1,5 @@
 #!/bin/bash
 
 DOCKER_IMAGE_NAME="myapp"
-
 DOCKER_CONTAINER_NAME="myapp_container"
-
-DIST_PATH=$DIST_PATH_FROM_JOB
+DIST_PATH="/var/jenkins_home/workspace/BUILD_JOB/${BRANCH_NAME}"
