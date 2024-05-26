@@ -24,7 +24,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
+                    // Добавляем путь к Docker в переменную PATH
                     withEnv(["PATH+DOCKER=${env.DOCKER_PATH}"]) {
+                        // Запускаем скрипт docker_deploy.sh
                         sh 'bash docker_deploy.sh'
                     }
                 }
