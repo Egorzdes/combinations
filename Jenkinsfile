@@ -4,40 +4,19 @@ pipeline {
         maven 'M3' // Имя настройки Maven, как она задана в Jenkins (обычно что-то вроде "M3")
     }
     stages {
-        stage('---clean---') {
+        stage('Clean') {
             steps {
-                sh 'mvn clean'
+                sh 'mvn clean' // Очистка проекта
             }
         }
-        stage('--package--') {
+        stage('Package') {
             steps {
-                sh 'mvn package'
-                script {
-                    def version = sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-                    echo "Текущая версия дистрибутива: ${version}"
-
-                    // Увеличение версии на 1
-                    def parts = version.tokenize('.')
-                    def mainVersion = parts[0]
-                    def subVersion = parts[1]
-                    def newVersion = mainVersion + '.' + (subVersion as Integer + 1).toString()
-                    echo "Новая версия дистрибутива: ${newVersion}"
-
-                    env.BUILD_VERSION = newVersion // Сохраняем новую версию в переменной BUILD_VERSION
-                }
+                sh 'mvn package' // Сборка дистрибутива
             }
         }
-        stage('--build-dist--') {
+        stage('Build') {
             steps {
-                sh 'mvn install' // Собираем дистрибутив
-            }
-        }
-    }
-    post {
-        always {
-            // Обновляем значение BUILD_VERSION после окончания сборки
-            script {
-                currentBuild.build.variable('BUILD_VERSION', env.BUILD_VERSION)
+                sh 'mvn install' // Сборка проекта
             }
         }
     }
