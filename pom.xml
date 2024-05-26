@@ -106,8 +106,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <!-- Указать ваш основной класс здесь -->
                             <mainClass>combinations.proj.ProjApplication</mainClass>
                         </manifest>
                     </archive>
