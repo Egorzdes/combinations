@@ -20,7 +20,7 @@ pipeline {
                     def parts = version.tokenize('.')
                     def mainVersion = parts[0]
                     def subVersion = parts[1]
-                    def newVersion = mainVersion + '.' + (subVersion as Integer + 1)
+                    def newVersion = mainVersion + '.' + (subVersion as Integer + 1).toString()
                     echo "Новая версия дистрибутива: ${newVersion}"
 
                     env.BUILD_VERSION = newVersion // Сохраняем новую версию в переменной BUILD_VERSION
