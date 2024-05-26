@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_PATH = "/c/Program Files/Docker/Docker/resources/bin"
+        DOCKER_IMAGE_NAME = 'myapp'
+        DOCKER_CONTAINER_NAME = 'myapp_container'
     }
 
     stages {
@@ -11,24 +12,22 @@ pipeline {
                 sh 'mvn clean'
             }
         }
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
         stage('Build') {
             steps {
-                sh 'mvn install'
+                sh 'mvn package -DskipTests'
             }
         }
-        stage('Deploy') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Добавляем путь к Docker в переменную PATH
-                    withEnv(["PATH+DOCKER=${env.DOCKER_PATH}"]) {
-                        // Запускаем скрипт docker_deploy.sh
-                        sh 'bash docker_deploy.sh'
-                    }
+                    docker.build("${DOCKER_IMAGE_NAME}")
+                }
+            }
+        }
+        stage('Deploy to Docker') {
+            steps {
+                script {
+                    docker.run("${DOCKER_IMAGE_NAME}", "--name ${DOCKER_CONTAINER_NAME} -d")
                 }
             }
         }
