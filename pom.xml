@@ -108,7 +108,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            <mainClass>combinations.proj.ProjApplication.java</mainClass>
+                            <mainClass>combinations.proj.ProjApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
