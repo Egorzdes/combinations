@@ -2,3 +2,5 @@
 DOCKER_IMAGE_NAME="myapp"
 DOCKER_CONTAINER_NAME="myapp_container"
 DIST_PATH="/var/jenkins_home/workspace/BUILD_JOB/"
+docker build -t $DOCKER_IMAGE_NAME $DIST_PATH
+docker run -d --name $DOCKER_CONTAINER_NAME -v $DIST_PATH:/app $DOCKER_IMAGE_NAME
