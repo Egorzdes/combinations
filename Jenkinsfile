@@ -7,6 +7,12 @@ pipeline {
     }
 
     stages {
+        stage('Clone repository') {
+            steps {
+                // Клонирование репозитория из GitHub
+                git 'https://github.com/Egorzdes/combinations.git'
+            }
+        }
         stage('Clean') {
             steps {
                 sh 'mvn clean'
