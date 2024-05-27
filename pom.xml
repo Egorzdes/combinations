@@ -95,8 +95,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>combinations.proj.ProjApplication</mainClass>
                         </manifest>
                     </archive>
