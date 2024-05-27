@@ -5,7 +5,7 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Копируем JAR-файл из локальной директории в образ
-COPY target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar /app/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+COPY target/proj-0.0.1-SNAPSHOT.jar /app/proj-0.0.1-SNAPSHOT.jar
 
 # Команда для запуска приложения в контейнере
-CMD ["java", "-jar", "proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar"]
+CMD ["java", "-jar", "proj-0.0.1-SNAPSHOT.jar"]
