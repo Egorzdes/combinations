@@ -1,17 +1,11 @@
-# Stage 1: Build
-FROM maven:3.8.1-openjdk-11 AS build
-WORKDIR /app
-
-# Копируем pom.xml и загружаем зависимости
-COPY pom.xml .
-RUN mvn dependency:go-offline
-
-# Копируем исходный код и собираем проект
-COPY . .
-RUN mvn clean package -DskipTests
-
-# Stage 2: Run
+# Используем образ OpenJDK 11
 FROM openjdk:11-jre-slim
+
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
-COPY --from=build /app/target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Копируем JAR-файл из локальной директории в образ
+COPY target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar /app/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+# Команда для запуска приложения в контейнере
+CMD ["java", "-jar", "proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar"]

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-DOCKER_IMAGE_NAME="myapp"
+DOCKER_IMAGE_NAME="proj"
 DOCKER_CONTAINER_NAME="myapp_container"
-DIST_PATH="/var/jenkins_home/workspace/BUILD_JOB/"
+DIST_PATH="/mnt/c/Users/79332/Downloads/jenkins_docker/jenkins_home/workspace/BUILD_JOB"
 
-docker build -t $DOCKER_IMAGE_NAME $DIST_PATH
-docker run -d --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
+docker build -t $DOCKER_IMAGE_NAME -f $DIST_PATH/Dockerfile $DIST_PATH
+docker run -d --rm --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
