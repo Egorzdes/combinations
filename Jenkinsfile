@@ -1,45 +1,31 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKER_IMAGE_NAME = 'myapp'
-        DOCKER_CONTAINER_NAME = 'myapp_container'
-    }
-
     stages {
-        stage('Clone repository') {
-            steps {
-                // Клонирование репозитория из GitHub
-                git 'https://github.com/Egorzdes/combinations.git'
-            }
-        }
-        stage('Clean') {
-            steps {
-                sh 'mvn clean'
-            }
-        }
         stage('Build') {
             steps {
-                sh 'mvn package -DskipTests'
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
                 script {
-                    docker.build("${DOCKER_IMAGE_NAME}")
+                    // Строим Docker-образ
+                    sh 'docker build -t my-app .'
                 }
             }
         }
-        stage('Deploy to Docker') {
+        stage('Deploy') {
             steps {
                 script {
-                    // Stop and remove any existing container with the same name
-                    sh "docker stop ${DOCKER_CONTAINER_NAME} || true"
-                    sh "docker rm ${DOCKER_CONTAINER_NAME} || true"
+                    // Сохраните Docker-образ в файл и загрузите его в Minikube
+                    sh 'docker save my-app -o my-app.tar'
+                    sh 'docker cp my-app.tar minikube:/my-app.tar'
 
-                    // Run the new Docker container
-                    def dockerImage = docker.image("${DOCKER_IMAGE_NAME}")
-                    dockerImage.run("-d --name ${DOCKER_CONTAINER_NAME}")
+                    // Внутри контейнера Minikube загрузите образ
+                    sh 'docker exec minikube docker load -i /my-app.tar'
+
+                    // Копируем манифесты в контейнер Minikube
+                    sh 'docker cp deployment.yaml minikube:/deployment.yaml'
+                    sh 'docker cp service.yaml minikube:/service.yaml'
+
+                    // Применяем Kubernetes манифесты для деплоя
+                    sh 'docker exec minikube kubectl apply -f /deployment.yaml'
+                    sh 'docker exec minikube kubectl apply -f /service.yaml'
                 }
             }
         }
