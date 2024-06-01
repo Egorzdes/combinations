@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
+@RequestMapping("/app")
 public class DataProcessingController {
 
     private final DataProcessingService dp;
