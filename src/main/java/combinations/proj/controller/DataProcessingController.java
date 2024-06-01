@@ -28,6 +28,12 @@ public class DataProcessingController {
 
     private final AtomicInteger counter = new AtomicInteger(1);
 
+    @GetMapping("/hello")
+    @ResponseBody
+    public String hello() {
+        return "Hello, World!";
+    }
+
     @PostMapping("/process-data")
     public ModelAndView processData(@RequestBody DataRequest request) {
         List<Tuple> combinations = dp.generateCombinations(request);
