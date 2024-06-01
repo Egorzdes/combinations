@@ -7,7 +7,7 @@
         <version>2.5.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <groupId>project</groupId>
     <artifactId>proj</artifactId>
     <version>0.0.1-SNAPSHOT</version>
