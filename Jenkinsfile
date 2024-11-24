@@ -12,6 +12,11 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
+        stage('Verify Build Artifacts') {
+            steps {
+                sh 'ls -l target/'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t combinations:latest .'
