@@ -60,10 +60,13 @@ pipeline {
 
         stage('Check Running Container') {
             steps {
-                sh '''
-                echo "Checking if container is running..."
-                docker ps | grep ${CONTAINER_NAME}
-                '''
+                script {
+                    echo "Checking if container is running..."
+                    def isRunning = sh(script: "docker ps --filter 'name=${CONTAINER_NAME}' --format '{{.Names}}' | grep ${CONTAINER_NAME} || true", returnStatus: true)
+                    if (isRunning != 0) {
+                        error "Container '${CONTAINER_NAME}' is not running"
+                    }
+                }
             }
         }
     }
