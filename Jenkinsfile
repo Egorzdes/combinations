@@ -27,7 +27,7 @@ pipeline {
                 sh '''
                 docker stop combinations || true
                 docker rm combinations || true
-                docker run -d --name combinations -p 8081:8080 combinations:latest
+                docker run -d --name combinations -p 8081:8081 combinations:latest
                 '''
             }
         }
