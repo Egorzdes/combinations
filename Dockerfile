@@ -1,14 +1,15 @@
-# Базовый образ с OpenJDK
+# Базовый образ с OpenJDK 17
 FROM openjdk:17-jdk-slim
 
-# Установить рабочую директорию
+# Установить рабочую директорию в контейнере
 WORKDIR /app
 
-# Копировать JAR-файл с зависимостями в контейнер
-COPY target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar app.jar
+# Копировать JAR-файл в контейнер
+# Убедитесь, что путь к файлу совпадает с вашим
+COPY out/artifacts/proj_jar/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar app.jar
 
 # Открыть порт приложения
 EXPOSE 8081
 
-# Запустить приложение
+# Команда для запуска приложения
 CMD ["java", "-jar", "app.jar"]
