@@ -1,23 +1,36 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
+        stage('Clone Repository') {
             steps {
-                script {
-                    dockerImage = docker.build("my-app")
-                }
+                git branch: 'master', url: 'https://github.com/EgorZdes/combinations.git'
             }
         }
-        stage('Deploy') {
+        stage('Build with Maven') {
             steps {
-                script {
-                    kubectl("apply -f C:/Users/79332/combinations/k8s-deployment.yaml")
-                }
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t combinations:latest .'
+            }
+        }
+        stage('Run Docker Container') {
+            steps {
+                sh '''
+                docker stop combinations || true
+                docker rm combinations || true
+                docker run -d --name combinations -p 8080:8080 combinations:latest
+                '''
             }
         }
     }
-}
 
-def kubectl(command) {
-    sh "kubectl ${command}"
+    post {
+        always {
+            cleanWs()
+        }
+    }
 }
