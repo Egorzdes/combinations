@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar app.jar
 
 # Открыть порт приложения
-EXPOSE 8080
+EXPOSE 8081
 
 # Запустить приложение
 CMD ["java", "-jar", "app.jar"]
