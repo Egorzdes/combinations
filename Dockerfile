@@ -6,7 +6,8 @@ WORKDIR /app
 
 # Копировать JAR-файл в контейнер
 # Убедитесь, что путь к файлу совпадает с вашим
-COPY out/artifacts/proj_jar/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar app.jar
+target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
 
 # Открыть порт приложения
 EXPOSE 8081
