@@ -1,13 +1,17 @@
-# Используем образ OpenJDK 11
-FROM openjdk:11-jre-slim
+# Базовый образ с установленным JDK 17
+FROM openjdk:17-jdk-slim
 
-# Устанавливаем рабочую директорию внутри контейнера
+# Установка рабочей директории внутри контейнера
 WORKDIR /app
 
-# Копируем JAR-файл из локальной директории в образ
-COPY target/proj-0.0.1-SNAPSHOT.jar /app/proj-0.0.1-SNAPSHOT.jar
+# Копирование файлов проекта в контейнер
+COPY . .
 
-EXPOSE 9080
+# Установка Maven и сборка приложения
+RUN apt-get update && apt-get install -y maven && mvn clean package
 
-# Команда для запуска приложения в контейнере
-CMD ["java", "-jar", "proj-0.0.1-SNAPSHOT.jar"]
+# Указываем порт, который будет использовать приложение
+EXPOSE 8080
+
+# Запуск приложения
+CMD ["java", "-jar", "target/ваш-jar-файл.jar"]
