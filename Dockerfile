@@ -11,7 +11,7 @@ COPY . .
 RUN apt-get update && apt-get install -y maven && mvn clean package
 
 # Указываем порт, который будет использовать приложение
-EXPOSE 8080
+EXPOSE 8082
 
 # Запуск приложения
 CMD ["java", "-jar", "target/ваш-jar-файл.jar"]
