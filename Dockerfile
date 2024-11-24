@@ -5,9 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Копировать JAR-файл в контейнер
-# Убедитесь, что путь к файлу совпадает с вашим
-target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-
+COPY target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar app.jar
 
 # Открыть порт приложения
 EXPOSE 8081
