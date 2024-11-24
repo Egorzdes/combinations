@@ -1,5 +1,5 @@
 # Базовый образ с установленным JDK 17
-FROM openjdk:17-jdk-slim
+FROM openjdk:11-jdk-slim
 
 # Установка рабочей директории внутри контейнера
 WORKDIR /app
