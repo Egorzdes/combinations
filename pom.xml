@@ -7,39 +7,55 @@
         <version>2.5.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <packaging>war</packaging>
+    
+    <!-- Устанавливаем тип пакета на JAR -->
+    <packaging>jar</packaging>
+    
     <groupId>project</groupId>
     <artifactId>proj</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>project</name>
     <description>Demo project for Spring Boot</description>
+    
     <properties>
         <java.version>17</java.version>
     </properties>
+    
     <dependencies>
+        <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        
+        <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>30.1-jre</version>
         </dependency>
+        
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        
+        <!-- Spring Data REST -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
+        
+        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -50,33 +66,19 @@
             <artifactId>assertj-core</artifactId>
         </dependency>
     </dependencies>
-    <scm>
-        <connection>scm:git:git://github.com/Egorzdes/combinations.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:Egorzdes/combinations.git</developerConnection>
-        <url>https://github.com/Egorzdes/combinations</url>
-    </scm>
+    
     <build>
         <plugins>
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>combinations.proj.ProjApplication</mainClass>
+                </configuration>
             </plugin>
-      <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-jar-plugin</artifactId>
-    <version>3.2.0</version>
-    <configuration>
-        <finalName>app</finalName> <!-- Укажите желаемое имя JAR-файла -->
-        <archive>
-            <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                <mainClass>combinations.proj.ProjApplication</mainClass>
-            </manifest>
-        </archive>
-    </configuration>
-</plugin>
-
+            
+            <!-- Maven Assembly Plugin для создания JAR с зависимостями -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -100,20 +102,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-                 <!-- Maven Plugin for Tomcat -->
-	<plugin>
-		<groupId>org.codehaus.cargo</groupId>
-		<artifactId>cargo-maven2-plugin</artifactId>
-		<version>1.7.6</version>
-		<configuration>
-			<container>
-				<containerId>tomcat9x</containerId>
-				<type>embedded</type>
-			</container>
-		</configuration>
-	</plugin>
         </plugins>
     </build>
-
 </project>
