@@ -4,8 +4,8 @@ FROM openjdk:11-jdk-slim
 # Установить рабочую директорию
 WORKDIR /app
 
-# Копировать JAR-файл в контейнер
-COPY target/app.jar app.jar
+# Копировать JAR-файл с зависимостями в контейнер
+COPY target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar app.jar
 
 # Открыть порт приложения
 EXPOSE 8080
