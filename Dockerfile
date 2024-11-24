@@ -1,5 +1,14 @@
-FROM openjdk:17-jdk-slim
+# Базовый образ с OpenJDK
+FROM openjdk:11-jdk-slim
+
+# Установить рабочую директорию
 WORKDIR /app
-COPY target/combinations-1.0-SNAPSHOT.jar app.jar
-CMD ["java", "-jar", "app.jar"]
+
+# Копировать JAR-файл в контейнер
+COPY target/app.jar app.jar
+
+# Открыть порт приложения
 EXPOSE 8080
+
+# Запустить приложение
+CMD ["java", "-jar", "app.jar"]
