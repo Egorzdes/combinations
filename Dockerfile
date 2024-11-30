@@ -1,8 +1,17 @@
+# Базовый образ с установленным JDK 17
+FROM openjdk:17-jdk-slim
 
-# Убедитесь, что базовый образ установлен правильно
-FROM maven:3.8.7-openjdk-17-slim as builder
+# Установка рабочей директории внутри контейнера
+WORKDIR /app
 
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+# Копирование файлов проекта в контейнер
+COPY . .
+
+# Установка Maven и сборка приложения
+RUN apt-get update && apt-get install -y maven && mvn clean package
+
+# Указываем порт, который будет использовать приложение
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+
+# Запуск приложения
+CMD ["java", "-jar", "target/ваш-jar-файл.jar"]
