@@ -21,7 +21,26 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh 'docker run -d --name combinations combinations'
+                    // Убедитесь, что старый контейнер остановлен и удален
+                    sh '''
+                    docker stop combinations || true
+                    docker rm combinations || true
+                    docker run -d --name combinations combinations
+                    '''
+                }
+            }
+        }
+        stage('Check Running Container') {
+            steps {
+                script {
+                    // Проверяем, работает ли контейнер
+                    echo "Checking if container 'combinations' is running..."
+                    def isRunning = sh(script: "docker ps --filter 'name=combinations' --format '{{.Names}}' | grep combinations || true", returnStatus: true)
+                    if (isRunning != 0) {
+                        error "Container 'combinations' is not running."
+                    } else {
+                        echo "Container 'combinations' is running successfully."
+                    }
                 }
             }
         }
