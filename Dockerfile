@@ -1,20 +1,27 @@
-# Убедитесь, что базовый образ установлен правильно
-FROM maven:3.8.4-openjdk-17-slim as builder
+# Используем образ для сборки проекта
+FROM maven:3.8.4-openjdk-17-slim AS builder
 
-# Установите рабочую директорию
+# Установить рабочую директорию для Maven
 WORKDIR /app
 
-# Копируйте файл pom.xml и исходные файлы проекта
+# Копируем POM файл и исходники для Maven
 COPY pom.xml /app/
-COPY src /app/src
+COPY src /app/src/
 
-# Выполните сборку
-RUN mvn clean package
+# Собираем проект с помощью Maven
+RUN mvn clean package -DskipTests
 
-# Переключитесь на легкий образ для запуска
+# Переключаемся на более легкий образ для запуска
 FROM openjdk:17-jdk-slim
+
+# Копируем артефакт из предыдущего слоя (сборка Maven)
 COPY --from=builder /app/target/combinations-0.0.1-SNAPSHOT.jar /app/app.jar
 
-# Установите точку входа
+# Открываем порт для приложения
+EXPOSE 8081
+
+# Устанавливаем точку входа для приложения
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
+# Команда для запуска приложения
+CMD ["java", "-jar", "/app/app.jar"]
