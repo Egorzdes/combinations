@@ -7,6 +7,10 @@
         <version>2.5.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
+<configuration>
+  <mainClass>combinations.proj.ProjApplication</mainClass>
+</configuration>
     
     <!-- Устанавливаем тип пакета на JAR -->
     <packaging>jar</packaging>
