@@ -1,10 +1,4 @@
-# Указываем рабочую директорию в контейнере
+FROM openjdk:17-jdk-slim
+COPY target/proj-0.0.1-SNAPSHOT-jar-with-dependencies.jar /app/proj-0.0.1-SNAPSHOT.jar
 WORKDIR /app
-
-# Копируем все файлы в рабочую директорию контейнера
-COPY . /app
-
-# Указываем путь к JAR-файлу и запускаем его
-CMD ["java", "-jar", "target/ваш-jar-файл.jar"]
-
-EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "proj-0.0.1-SNAPSHOT.jar"]
