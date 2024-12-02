@@ -1,8 +1,7 @@
-# Используем образ с Maven
-FROM maven:3.8.6
+FROM openjdk:17-jdk
 
-# Устанавливаем OpenJDK 17
-RUN apt-get update && apt-get install -y openjdk-17-jdk
+# Устанавливаем утилиты, включая apt-get и Maven
+RUN apt-get update && apt-get install -y maven
 
 # Копируем pom.xml и загружаем зависимости
 COPY pom.xml /app/
