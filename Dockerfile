@@ -1,5 +1,5 @@
 # Stage 1: Сборка приложения с Maven
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.6-openjdk-17-slim AS build
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
