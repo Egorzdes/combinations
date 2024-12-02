@@ -1,13 +1,16 @@
-# Используем образ с OpenJDK 17 и Maven
-FROM maven:3.8.6-openjdk-17
+# Используем образ с OpenJDK 17
+FROM openjdk:17-jdk
 
-# Устанавливаем рабочую директорию в контейнере
+# Устанавливаем утилиты, включая apt-get и Maven
+RUN apt-get update && apt-get install -y maven
+
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
 # Копируем pom.xml в контейнер
 COPY pom.xml /app/
 
-# Загружаем зависимости Maven (если они еще не загружены)
+# Загружаем зависимости Maven
 RUN mvn dependency:go-offline
 
 # Копируем JAR-файл в контейнер
